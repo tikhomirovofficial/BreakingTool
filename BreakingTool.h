@@ -26,10 +26,10 @@ namespace Tools {
 			BreakingToolType type;
 
 		public:
-			// default constructor
+			// Конструктор по умолчанию
 			BreakingTool();
 
-			// parametrized constructor
+			// Параметризованный конструктор
 			BreakingTool(
 				const char* name, 
 				const unsigned damage,
@@ -37,42 +37,44 @@ namespace Tools {
 				const BreakingToolType type
 			);
 			
-			// copying constructor
+			// Копирующий конструктор
 			BreakingTool(BreakingTool &srcTool);
 
-			// destructor
+			// Перегрузка оператора присваивания
+			BreakingTool& operator=(const BreakingTool& other);
+
+			// Деструктор
 			~BreakingTool();
 
-			// health setter
+			// Установка здоровья
 			void setHealth(unsigned health);
 
-			// name getter
+			// Получение имени
 			char* getName() const;
 
-			// name setter
+			// Установка имени
 			void setName(const char* name);
 
-			// damage getter
+			// Получение урона
 			unsigned getDamage() const;
 
-			// health getter
+			// Получение здоровья
 			unsigned getHealth() const;
 			
-			// get stringified type
+			// Получить тип инструмента в виде строки
 			const char* getTypeString() const;
 
-			// breaking tool type getter			
+			// Получить тип инструмента		
 			BreakingToolType getType() const;
 
-			// info logger
+			// Вывод информации
 			void logInfo() const;
 
-			// increment global count objects
+			// Увеличить количество объектов класса
 			static void incrementCount();
 
-			// print count of instances
+			// Вывести количество объектов класса
 			static void printCount();
-
 	};
 }
 

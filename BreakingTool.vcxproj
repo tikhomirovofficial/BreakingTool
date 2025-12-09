@@ -142,9 +142,11 @@
   <ItemGroup>
     <ClCompile Include="BreakingTool.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="ToolsStack.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BreakingTool.h" />
+    <ClInclude Include="ToolsStack.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

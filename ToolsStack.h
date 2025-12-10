@@ -14,12 +14,15 @@ class ToolStack {
         Node* top;
         unsigned capacity;
         unsigned count;
+        void copyOther(const ToolStack& other);
 
     public:
         // Конструкторы
         ToolStack();
         ToolStack(unsigned  capacity);
         ToolStack(const ToolStack& other);
+
+        ToolStack& operator=(const ToolStack& other);
 
         ~ToolStack();
 

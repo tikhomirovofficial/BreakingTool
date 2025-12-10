@@ -9,7 +9,6 @@ char* getInputString(const char* label) {
 	const int BUFFER_SIZE = 256;
 	char buffer[BUFFER_SIZE];
 	
-	
 	cout << label;
 	cin.getline(buffer, BUFFER_SIZE);
 	cin.ignore(0);
@@ -30,7 +29,11 @@ int main() {
 	
 	ToolStack toolsStack = ToolStack(5);
 
-	cout << endl << endl << "::: TEST ADDING:::" << endl;
+	toolsStack.push(drill);
+	toolsStack.push(secondDrill);
+	toolsStack.push(thirdDrill);
+
+	/*cout << endl << endl << "::: TEST ADDING:::" << endl;
 	toolsStack.push(drill);
 	toolsStack.push(secondDrill);
 	toolsStack.push(thirdDrill);
@@ -55,7 +58,17 @@ int main() {
 	
 	cout << endl << endl << "::: TEST SORTING:::" << endl;
 	toolsStack.sortByDamage();
+	toolsStack.print();*/
+
+	cout << endl << endl << "::: TEST ASSIGMENT:::" << endl;
+
+	ToolStack copyStack = toolsStack;
+
+	copyStack.pop();
+	copyStack.print();
+
 	toolsStack.print();
+
 
 	return 0;
 }

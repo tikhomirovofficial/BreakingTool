@@ -25,26 +25,19 @@ ToolStack::ToolStack(unsigned capacity) : top(nullptr), count(0) {
     cout << "Parameterized constructor: stack created with capacity = " << this->capacity << endl;
 }
 
-// Копирующий конструктор
-ToolStack::ToolStack(const ToolStack& other) : top(nullptr), count(0), capacity(other.capacity) {
-    if (other.top == nullptr) {
-        cout << "Copy constructor: empty stack copied, capacity = " << capacity << endl;
-        return;
-    }
-
+void ToolStack::copyOther(const ToolStack& other) {
     // Создаем временный стек в обратном порядке, чтобы в объекте был в исходном порядке
     Node* current = other.top;
     Node* bufferStackTop = nullptr;
     int tempCount = 0;
 
     // Для заполнения временного стека
-    while (current != nullptr && tempCount < capacity) {
-        
-        // Создаем новый узел
+    while (current != nullptr && tempCount < other.capacity) {
+
         Node* newNode = new Node;
         newNode->tool = current->tool;
         newNode->prev = bufferStackTop;
-        
+
         // Перекладываем с вершины исходного в начало временного, заполняя его
         bufferStackTop = newNode;
         current = current->prev;
@@ -54,24 +47,46 @@ ToolStack::ToolStack(const ToolStack& other) : top(nullptr), count(0), capacity(
     // Для заполнения реального стека
     while (bufferStackTop != nullptr) {
 
-        // Создаём новый узел
         Node* newNode = new Node;
         newNode->tool = bufferStackTop->tool;
         newNode->prev = top;
-        
-        // Обновляем вершину реального стека
+
         top = newNode;
         count++;
-        
+
         // Удаляем элементы временного стека, шагая вниз
         Node* toDelete = bufferStackTop;
         bufferStackTop = bufferStackTop->prev;
         delete toDelete;
     }
+};
+
+// Копирующий конструктор
+ToolStack::ToolStack(const ToolStack& other) : top(nullptr), count(0), capacity(other.capacity) {
+    if (other.top == nullptr) {
+        cout << "Copy constructor: empty stack copied, capacity = " << capacity << endl;
+        return;
+    }
+
+    copyOther(other);
 
     cout << "Copy constructor: stack copied, size = " << count << ", capacity = " << capacity << endl;
 }
-    
+
+// Оператор присваивания
+ToolStack& ToolStack::operator = (const ToolStack& other) {
+  
+    if (this == &other) {
+        cout << "Self-assignment detected, operation skipped" << endl;
+        return *this;
+    }
+
+    copyOther(other);
+
+    return *this;
+}
+
+
 // Деструктор
 ToolStack::~ToolStack() {
     clear();
@@ -143,7 +158,7 @@ void ToolStack::print() const {
     cout << "======================" << endl;
 }
 
-// Сортировка по урону
+// Сортировка по урону (по возрастанию)
 void ToolStack::sortByDamage() {
     if (count < 2) {
         cout << "Sort: not enough elements to sort" << endl;
@@ -152,7 +167,6 @@ void ToolStack::sortByDamage() {
 
     BreakingTool* arr = this->toArray();
 
-    // Сортировка по возрастанию урона (Пузырёк)
     for (int i = 0; i < count - 1; i++) {
         for (int j = 0; j < count - i - 1; j++) {
             int currentToolDmg = arr[j].getDamage();
@@ -170,7 +184,7 @@ void ToolStack::sortByDamage() {
     int currentCount = count;
     clear();
 
-    // Создаем новый стек обратном порядке, чтобы самый маленький урон был наверху
+    // Создаем новый стек, чтобы самый маленький урон был наверху
     for (int i = currentCount - 1; i >= 0; i--) {
         Node* newNode = new Node;
         newNode->tool = arr[i];

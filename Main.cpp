@@ -69,6 +69,15 @@ int main() {
 
 	toolsStack.print();
 
+	cout << endl << endl << "::: TEST PUSH OPERATOR:::" << endl;
+
+	copyStack << BreakingTool("New tool", 10, 150, DRILLING);
+	copyStack.print();
+
+	cout << endl << endl << "::: TEST POP OPERATOR:::" << endl;
+
+	copyStack--;
+	copyStack.print();
 
 	return 0;
 }

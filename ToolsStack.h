@@ -21,8 +21,15 @@ class ToolStack {
         ToolStack();
         ToolStack(unsigned  capacity);
         ToolStack(const ToolStack& other);
-
+        
+        // Копирование
         ToolStack& operator=(const ToolStack& other);
+
+        // Аналог push
+        ToolStack& operator <<(const BreakingTool& tool);
+        
+        // Аналог pop
+        bool operator--(int);
 
         ~ToolStack();
 

@@ -102,6 +102,12 @@ void ToolStack::clear() {
     count = 0;
 }
 
+// Оператор добавления элмента в стек
+ToolStack& ToolStack::operator<<(const BreakingTool& tool) {
+    push(tool);
+    return *this;  // Возвращаем ссылку для цепочек: stack << tool1 << tool2
+}
+
 // Добавить элемент в стек
 bool ToolStack::push(const BreakingTool& tool) {
     if (isFull()) {
@@ -118,6 +124,11 @@ bool ToolStack::push(const BreakingTool& tool) {
 
     cout << "Pushed: " << tool.getName() << " (size = " << count << "/" << capacity << ")" << endl;
     return true;
+}
+
+// Аналог pop
+bool ToolStack::operator--(int) {
+    return pop();
 }
 
 // Удалить элемент с вершины стека
